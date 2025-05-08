@@ -11,5 +11,9 @@ public enum TerrainType
     /// <summary>
     /// 岩浆
     /// </summary>
-    Lava
+    Lava,
+    /// <summary>
+    /// 墙壁
+    /// </summary>
+    Wall
 }

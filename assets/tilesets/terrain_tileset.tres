@@ -1,7 +1,8 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dsdu66ia6hpui"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://dsdu66ia6hpui"]
 
 [ext_resource type="Texture2D" uid="uid://dv7vqdqrat1sv" path="res://assets/images/terrains/swamp_tileset.png" id="1_bxdgg"]
 [ext_resource type="Texture2D" uid="uid://23fc2ginyfmo" path="res://assets/images/terrains/lava_tileset.png" id="2_mxqua"]
+[ext_resource type="Texture2D" uid="uid://dwwtsfr8k86u4" path="res://assets/images/terrains/wall_tileset.png" id="3_ofh50"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ro5h"]
 resource_name = "swamp"
@@ -43,6 +44,27 @@ texture = ExtResource("2_mxqua")
 3:3/0 = 0
 0:3/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dy7bf"]
+resource_name = "wall"
+texture = ExtResource("3_ofh50")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+0:3/0 = 0
+
 [resource]
 sources/0 = SubResource("TileSetAtlasSource_3ro5h")
 sources/1 = SubResource("TileSetAtlasSource_ofh50")
+sources/2 = SubResource("TileSetAtlasSource_dy7bf")

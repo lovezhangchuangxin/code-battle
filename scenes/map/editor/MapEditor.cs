@@ -18,6 +18,12 @@ public partial class MapEditor : Node2D
     public TileMapLayer LavaLayer { get; set; }
 
     /// <summary>
+    /// 墙壁层
+    /// </summary>
+    [Export]
+    public TileMapLayer WallLayer { get; set; }
+
+    /// <summary>
     /// 每个位置的地形数据
     /// </summary>
     public Dictionary<Vector2I, TerrainType> TerrainData { get; set; } = [];
@@ -28,6 +34,7 @@ public partial class MapEditor : Node2D
         int offset = -MapUtils.TILE_SIZE / 2;
         SwampLayer.Position = new Vector2(offset, offset);
         LavaLayer.Position = new Vector2(offset, offset);
+        WallLayer.Position = new Vector2(offset, offset);
     }
 
     /// <summary>
@@ -35,6 +42,12 @@ public partial class MapEditor : Node2D
     /// </summary>
     public void SetTerrain(Vector2I coords, TerrainType terrain)
     {
+        if (terrain == TerrainType.None)
+        {
+            RemoveTerrain(coords);
+            return;
+        }
+
         // 更新地形数据
         if (TerrainData.TryGetValue(coords, out TerrainType existingTerrain))
         {
@@ -59,8 +72,12 @@ public partial class MapEditor : Node2D
     /// </summary>
     public void RemoveTerrain(Vector2I coords)
     {
+        if (!TerrainData.TryGetValue(coords, out TerrainType terrain))
+        {
+            return;
+        }
+
         // 移除地形数据
-        TerrainType terrain = TerrainData[coords];
         TerrainData.Remove(coords);
         // 更新周围四个邻居的瓦片
         foreach (var neighbour in MapUtils.NEIGHBOUR_POSITIONS)
@@ -92,6 +109,10 @@ public partial class MapEditor : Node2D
         else if (terrain == TerrainType.Lava)
         {
             LavaLayer.SetCell(position, 1, tileAtlasCoords);
+        }
+        else if (terrain == TerrainType.Wall)
+        {
+            WallLayer.SetCell(position, 2, tileAtlasCoords);
         }
     }
 }
