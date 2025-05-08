@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://cmc14i78vuf3s"]
+
+[ext_resource type="Script" uid="uid://crl0s88uuueia" path="res://scenes/map/editor/MapEditor.cs" id="1_s7kdx"]
+[ext_resource type="TileSet" uid="uid://dsdu66ia6hpui" path="res://assets/tilesets/terrain_tileset.tres" id="1_uohav"]
+[ext_resource type="Texture2D" uid="uid://cq2j1cg3g7v1h" path="res://assets/images/ui/select_indicator.png" id="3_ebyee"]
+[ext_resource type="Script" uid="uid://diametpvwa6p8" path="res://scenes/map/editor/SelectCursor.cs" id="4_4xghy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xghy"]
+atlas = ExtResource("3_ebyee")
+region = Rect2(17, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2qhe"]
+atlas = ExtResource("3_ebyee")
+region = Rect2(0, 0, 17, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ij43"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xghy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2qhe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="MapEditor" type="Node2D" node_paths=PackedStringArray("SwampLayer", "LavaLayer")]
+script = ExtResource("1_s7kdx")
+SwampLayer = NodePath("SwampLayer")
+LavaLayer = NodePath("LavaLayer")
+
+[node name="Ground" type="ColorRect" parent="."]
+offset_right = 1149.0
+offset_bottom = 649.0
+color = Color(0.0614913, 0.0247835, 0.103741, 1)
+
+[node name="SwampLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_uohav")
+
+[node name="LavaLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_uohav")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SelectCursor" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("MapEditor")]
+sprite_frames = SubResource("SpriteFrames_2ij43")
+autoplay = "default"
+frame_progress = 0.999363
+script = ExtResource("4_4xghy")
+MapEditor = NodePath("..")
