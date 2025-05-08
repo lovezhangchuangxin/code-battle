@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0gowdewku4d5"]
+
+[ext_resource type="Script" uid="uid://cawwmewx5yscn" path="res://scenes/ui/StartGame.cs" id="1_84kbm"]
+
+[node name="StartGame" type="CanvasLayer"]
+script = ExtResource("1_84kbm")
+
+[node name="Backgound" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.071335, 0.0278693, 0.113406, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -75.5
+offset_right = 110.0
+offset_bottom = 75.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "开始游戏"
+
+[node name="SettingButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "设置"
+
+[node name="ExitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "退出游戏"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_OnStartButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/SettingButton" to="." method="_OnSettingButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_OnExitButtonPressed"]
