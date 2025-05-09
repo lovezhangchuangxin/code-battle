@@ -1,84 +1,72 @@
-[gd_scene load_steps=9 format=3 uid="uid://cmc14i78vuf3s"]
+[gd_scene load_steps=3 format=3 uid="uid://cmc14i78vuf3s"]
 
 [ext_resource type="Script" uid="uid://crl0s88uuueia" path="res://scenes/map/editor/MapEditor.cs" id="1_s7kdx"]
 [ext_resource type="PackedScene" uid="uid://cpmqjc2jeyvcj" path="res://scenes/map/show/map_show.tscn" id="2_o2qhe"]
-[ext_resource type="Texture2D" uid="uid://cq2j1cg3g7v1h" path="res://assets/images/ui/select_indicator.png" id="3_ebyee"]
-[ext_resource type="Script" uid="uid://diametpvwa6p8" path="res://scenes/map/editor/SelectCursor.cs" id="4_4xghy"]
-[ext_resource type="Script" uid="uid://bs1nvt743v2yg" path="res://scenes/map/editor/MapEditorCamera.cs" id="5_o2qhe"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4xghy"]
-atlas = ExtResource("3_ebyee")
-region = Rect2(17, 0, 17, 17)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o2qhe"]
-atlas = ExtResource("3_ebyee")
-region = Rect2(0, 0, 17, 17)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_2ij43"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4xghy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o2qhe")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[node name="MapEditor" type="Node2D" node_paths=PackedStringArray("Map")]
+[node name="MapEditor" type="Node2D" node_paths=PackedStringArray("Map", "Label1", "Label2", "Label3", "Label4", "Label0")]
 script = ExtResource("1_s7kdx")
 Map = NodePath("MapShow")
+Label1 = NodePath("CanvasLayer/VBoxContainer/Label1")
+Label2 = NodePath("CanvasLayer/VBoxContainer/Label2")
+Label3 = NodePath("CanvasLayer/VBoxContainer/Label3")
+Label4 = NodePath("CanvasLayer/VBoxContainer/Label4")
+Label0 = NodePath("CanvasLayer/VBoxContainer/Label0")
 
 [node name="MapShow" parent="." instance=ExtResource("2_o2qhe")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="VContainer" type="VBoxContainer" parent="CanvasLayer"]
-offset_left = 35.0
-offset_top = 26.0
-offset_right = 195.0
-offset_bottom = 130.0
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
+offset_left = 33.0
+offset_top = 32.0
+offset_right = 113.0
+offset_bottom = 82.0
+columns = 2
 
-[node name="Desc" type="Label" parent="CanvasLayer/VContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+text = "地图长度："
+
+[node name="LengthEdit" type="LineEdit" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+text = "地图宽度："
+
+[node name="WidthEdit" type="LineEdit" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 32.0
+offset_top = 113.0
+offset_right = 192.0
+offset_bottom = 271.0
+
+[node name="Desc" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 text = "按数字选择对应的地形"
 
-[node name="Label1" type="Label" parent="CanvasLayer/VContainer"]
+[node name="Label1" type="Label" parent="CanvasLayer/VBoxContainer"]
 modulate = Color(0.846171, 0.61869, 0.385813, 1)
 layout_mode = 2
 text = "1. 墙壁"
 
-[node name="Label2" type="Label" parent="CanvasLayer/VContainer"]
+[node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 text = "2. 沼泽"
 
-[node name="Label3" type="Label" parent="CanvasLayer/VContainer"]
+[node name="Label3" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 text = "3. 岩浆"
 
-[node name="Label4" type="Label" parent="CanvasLayer/VContainer"]
+[node name="Label4" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 text = "4. 能量"
 
-[node name="Label0" type="Label" parent="CanvasLayer/VContainer"]
+[node name="Label0" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 text = "0. 清除地形"
 
-[node name="SelectCursor" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("MapEditor", "Label1", "Label2", "Label3", "Label4", "Label0")]
-sprite_frames = SubResource("SpriteFrames_2ij43")
-autoplay = "default"
-frame_progress = 0.999363
-script = ExtResource("4_4xghy")
-MapEditor = NodePath("..")
-Label1 = NodePath("../CanvasLayer/VContainer/Label1")
-Label2 = NodePath("../CanvasLayer/VContainer/Label2")
-Label3 = NodePath("../CanvasLayer/VContainer/Label3")
-Label4 = NodePath("../CanvasLayer/VContainer/Label4")
-Label0 = NodePath("../CanvasLayer/VContainer/Label0")
-
-[node name="MapEditorCamera" type="Camera2D" parent="."]
-position = Vector2(579, 320)
-script = ExtResource("5_o2qhe")
+[connection signal="text_changed" from="CanvasLayer/GridContainer/LengthEdit" to="." method="OnLengthChanged"]
+[connection signal="text_changed" from="CanvasLayer/GridContainer/WidthEdit" to="." method="OnWidthChanged"]

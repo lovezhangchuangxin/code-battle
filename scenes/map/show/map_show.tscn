@@ -1,17 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpmqjc2jeyvcj"]
+[gd_scene load_steps=10 format=3 uid="uid://cpmqjc2jeyvcj"]
 
 [ext_resource type="Script" uid="uid://d2flumjhrkqye" path="res://scenes/map/show/MapShow.cs" id="1_uogti"]
+[ext_resource type="Shader" uid="uid://dvo2bnksf4pos" path="res://shaders/grid.gdshader" id="2_0jare"]
 [ext_resource type="TileSet" uid="uid://dsdu66ia6hpui" path="res://assets/tilesets/terrain_tileset.tres" id="2_ffqrq"]
 [ext_resource type="TileSet" uid="uid://y53dsvmuqrw1" path="res://assets/tilesets/object_tileset.tres" id="3_0jare"]
+[ext_resource type="Texture2D" uid="uid://cq2j1cg3g7v1h" path="res://assets/images/ui/select_indicator.png" id="5_2dxiw"]
+[ext_resource type="Script" uid="uid://dgovklhveg77t" path="res://scenes/map/show/MapCamera.cs" id="6_8a14j"]
+[ext_resource type="Script" uid="uid://bok8kdlsefdct" path="res://scenes/map/show/SelectCursor.cs" id="6_hgoal"]
 
-[node name="MapShow" type="Node2D" node_paths=PackedStringArray("SwampLayer", "LavaLayer", "WallLayer", "ObjectLayer")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2dxiw"]
+shader = ExtResource("2_0jare")
+shader_parameter/resolution = Vector2(1152, 648)
+shader_parameter/line_color = Color(0.389287, 0.389287, 0.389287, 1)
+shader_parameter/grid_size = 16.0
+shader_parameter/thickness = 0.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8a14j"]
+atlas = ExtResource("5_2dxiw")
+region = Rect2(0, 0, 17, 17)
+
+[node name="MapShow" type="Node2D" node_paths=PackedStringArray("Ground", "SwampLayer", "LavaLayer", "WallLayer", "ObjectLayer", "Camera")]
 script = ExtResource("1_uogti")
+Ground = NodePath("Ground")
 SwampLayer = NodePath("SwampLayer")
 LavaLayer = NodePath("LavaLayer")
 WallLayer = NodePath("WallLayer")
 ObjectLayer = NodePath("ObjectLayer")
+Camera = NodePath("MapCamera")
 
 [node name="Ground" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_2dxiw")
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0.219608, 0.215686, 0.215686, 1)
@@ -27,3 +45,11 @@ tile_set = ExtResource("2_ffqrq")
 
 [node name="ObjectLayer" type="TileMapLayer" parent="."]
 tile_set = ExtResource("3_0jare")
+
+[node name="SelectCursor" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_8a14j")
+script = ExtResource("6_hgoal")
+
+[node name="MapCamera" type="Camera2D" parent="."]
+position = Vector2(577, 325)
+script = ExtResource("6_8a14j")

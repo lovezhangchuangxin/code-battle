@@ -4,6 +4,12 @@ using System.Linq;
 public partial class MapShow : Node2D
 {
     /// <summary>
+    /// 地图地面
+    /// </summary>
+    [Export]
+    public ColorRect Ground { get; set; }
+
+    /// <summary>
     /// 沼泽层
     /// </summary>
     [Export]
@@ -28,9 +34,28 @@ public partial class MapShow : Node2D
     public TileMapLayer ObjectLayer { get; set; }
 
     /// <summary>
+    /// 相机
+    /// </summary>
+    [Export]
+    public MapCamera Camera { get; set; }
+
+    /// <summary>
     /// 地图数据
     /// </summary>
-    public MapData MapData { get; set; } = new MapData();
+    private MapData _mapData = new MapData();
+
+    /// <summary>
+    /// 地图数据
+    /// </summary>
+    public MapData MapData
+    {
+        get => _mapData;
+        set
+        {
+            _mapData = value;
+            ResizeMap(_mapData.MapLength, _mapData.MapWidth);
+        }
+    }
 
     public override void _Ready()
     {
@@ -38,6 +63,7 @@ public partial class MapShow : Node2D
         int offset = -MapUtils.TILE_SIZE / 2;
         SwampLayer.Position = new Vector2(offset, offset);
         LavaLayer.Position = new Vector2(offset, offset);
+        ResizeMap(MapData.MapLength, MapData.MapWidth);
     }
 
     /// <summary>
@@ -178,5 +204,20 @@ public partial class MapShow : Node2D
         {
             LavaLayer.SetCell(position, 1, tileAtlasCoords);
         }
+    }
+
+    /// <summary>
+    /// 调整地图大小
+    /// </summary>
+    public void ResizeMap(int length, int width)
+    {
+        _mapData.MapLength = length;
+        _mapData.MapWidth = width;
+        Vector2 size = new(length * MapUtils.TILE_SIZE, width * MapUtils.TILE_SIZE);
+        Ground.Size = size;
+        ShaderMaterial material = Ground.Material as ShaderMaterial;
+        material?.SetShaderParameter("resolution", size);
+        material?.SetShaderParameter("grid_size", MapUtils.TILE_SIZE);
+        Camera.MoveToMapCenter(length, width);
     }
 }

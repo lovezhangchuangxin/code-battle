@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class MapEditorCamera : Camera2D
+public partial class MapCamera : Camera2D
 {
     /// <summary>
     /// 相机移动速度
@@ -50,5 +50,14 @@ public partial class MapEditorCamera : Camera2D
 
         // 应用移动
         GlobalPosition += inputDir * adjustedSpeed * (float)delta;
+    }
+
+    /// <summary>
+    /// 移动视野到地图中心
+    /// </summary>
+    public void MoveToMapCenter(int length, int width)
+    {
+        // 计算地图中心位置
+        Position = new Vector2(length * MapUtils.TILE_SIZE / 2, width * MapUtils.TILE_SIZE / 2);
     }
 }

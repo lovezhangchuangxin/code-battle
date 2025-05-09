@@ -10,21 +10,21 @@ public partial class StartGame : CanvasLayer
     /// <summary>
     /// 点击开始游戏按钮
     /// </summary>
-    public void _OnStartButtonPressed()
+    public void OnStartButtonPressed()
     {
     }
 
     /// <summary>
     /// 点击设置按钮
     /// </summary>
-    public void _OnSettingButtonPressed()
+    public void OnSettingButtonPressed()
     {
     }
 
     /// <summary>
     /// 点击退出按钮
     /// </summary>
-    public void _OnExitButtonPressed()
+    public void OnExitButtonPressed()
     {
         GetTree().Quit();
     }
