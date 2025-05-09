@@ -56,6 +56,10 @@ public partial class MapEditor : Node2D
             {
                 RemoveTerrain(coords);
             }
+            else
+            {
+                return;
+            }
         }
         TerrainData[coords] = terrain;
 
