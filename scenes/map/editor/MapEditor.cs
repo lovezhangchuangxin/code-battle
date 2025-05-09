@@ -36,6 +36,11 @@ public partial class MapEditor : Node2D
     public override void _Process(double delta)
     {
         Vector2I coords = MapUtils.GlobalPixelToTile(GetGlobalMousePosition());
+        if (coords.X < 0 || coords.Y < 0 || coords.X >= Map.MapData.MapLength || coords.Y >= Map.MapData.MapWidth)
+        {
+            return;
+        }
+
         if (Input.IsActionPressed("left_click"))
         {
             Map.SetTerrain(coords, selectedTerrain);
@@ -115,7 +120,6 @@ public partial class MapEditor : Node2D
 
     public void OnWidthChanged(string text)
     {
-
         try
         {
             MapData MapData = Map.MapData;
