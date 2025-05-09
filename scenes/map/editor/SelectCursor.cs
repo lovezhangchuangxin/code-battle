@@ -39,13 +39,13 @@ public partial class SelectCursor : AnimatedSprite2D
         Vector2I coords = MapUtils.GlobalPixelToTile(GetGlobalMousePosition());
         if (Input.IsActionPressed("left_click"))
         {
-            MapEditor.SetTerrain(coords, selectedTerrain);
-            MapEditor.SetObject(coords, selectedObject);
+            MapEditor.Map.SetTerrain(coords, selectedTerrain);
+            MapEditor.Map.SetObject(coords, selectedObject);
         }
         else if (Input.IsActionPressed("right_click"))
         {
-            MapEditor.SetTerrain(coords, TerrainType.None);
-            MapEditor.SetObject(coords, ObjectType.None);
+            MapEditor.Map.SetTerrain(coords, TerrainType.None);
+            MapEditor.Map.SetObject(coords, ObjectType.None);
         }
     }
 

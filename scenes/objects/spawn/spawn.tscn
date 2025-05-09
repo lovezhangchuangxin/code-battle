@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5r5a2xj76uh"]
+
+[ext_resource type="Texture2D" uid="uid://se6po287rur0" path="res://assets/images/objects/spawn.png" id="1_j8f0w"]
+[ext_resource type="Texture2D" uid="uid://c0qth52fvwk0j" path="res://assets/textures/light_texture.tres" id="2_t4l55"]
+
+[node name="Spawn" type="Sprite2D"]
+texture = ExtResource("1_j8f0w")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.475154, 0.294357, 0.694128, 1)
+energy = 0.5
+texture = ExtResource("2_t4l55")

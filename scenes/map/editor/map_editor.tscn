@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmc14i78vuf3s"]
+[gd_scene load_steps=9 format=3 uid="uid://cmc14i78vuf3s"]
 
 [ext_resource type="Script" uid="uid://crl0s88uuueia" path="res://scenes/map/editor/MapEditor.cs" id="1_s7kdx"]
-[ext_resource type="TileSet" uid="uid://dsdu66ia6hpui" path="res://assets/tilesets/terrain_tileset.tres" id="1_uohav"]
-[ext_resource type="TileSet" uid="uid://y53dsvmuqrw1" path="res://assets/tilesets/object_tileset.tres" id="3_2ij43"]
+[ext_resource type="PackedScene" uid="uid://cpmqjc2jeyvcj" path="res://scenes/map/show/map_show.tscn" id="2_o2qhe"]
 [ext_resource type="Texture2D" uid="uid://cq2j1cg3g7v1h" path="res://assets/images/ui/select_indicator.png" id="3_ebyee"]
 [ext_resource type="Script" uid="uid://diametpvwa6p8" path="res://scenes/map/editor/SelectCursor.cs" id="4_4xghy"]
 [ext_resource type="Script" uid="uid://bs1nvt743v2yg" path="res://scenes/map/editor/MapEditorCamera.cs" id="5_o2qhe"]
@@ -29,34 +28,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="MapEditor" type="Node2D" node_paths=PackedStringArray("SwampLayer", "LavaLayer", "WallLayer", "ObjectLayer")]
+[node name="MapEditor" type="Node2D" node_paths=PackedStringArray("Map")]
 script = ExtResource("1_s7kdx")
-SwampLayer = NodePath("SwampLayer")
-LavaLayer = NodePath("LavaLayer")
-WallLayer = NodePath("WallLayer")
-ObjectLayer = NodePath("ObjectLayer")
+Map = NodePath("MapShow")
 
-[node name="Ground" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1155.0
-offset_bottom = 642.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.219608, 0.215686, 0.215686, 1)
-
-[node name="SwampLayer" type="TileMapLayer" parent="."]
-tile_set = ExtResource("1_uohav")
-
-[node name="LavaLayer" type="TileMapLayer" parent="."]
-tile_set = ExtResource("1_uohav")
-
-[node name="WallLayer" type="TileMapLayer" parent="."]
-tile_set = ExtResource("1_uohav")
-
-[node name="ObjectLayer" type="TileMapLayer" parent="."]
-tile_set = ExtResource("3_2ij43")
+[node name="MapShow" parent="." instance=ExtResource("2_o2qhe")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

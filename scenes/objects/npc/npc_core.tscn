@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxrhfmhtjjl4k"]
+
+[ext_resource type="Texture2D" uid="uid://ba6kfjtkqxn01" path="res://assets/images/objects/npc_core.png" id="1_yqrac"]
+[ext_resource type="Texture2D" uid="uid://c0qth52fvwk0j" path="res://assets/textures/light_texture.tres" id="2_dy8sh"]
+
+[node name="NpcCore" type="Sprite2D"]
+texture = ExtResource("1_yqrac")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.84139, 0.25146, 0.275922, 1)
+energy = 0.5
+texture = ExtResource("2_dy8sh")

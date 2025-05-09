@@ -1,10 +1,14 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://y53dsvmuqrw1"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://y53dsvmuqrw1"]
 
 [ext_resource type="PackedScene" uid="uid://6m2iwyjninj3" path="res://scenes/objects/energy/energy.tscn" id="1_cp1xt"]
+[ext_resource type="PackedScene" uid="uid://c5r5a2xj76uh" path="res://scenes/objects/spawn/spawn.tscn" id="2_mbo1i"]
+[ext_resource type="PackedScene" uid="uid://cxrhfmhtjjl4k" path="res://scenes/objects/npc/npc_core.tscn" id="3_ifg4b"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_mbo1i"]
 resource_name = "object"
 scenes/1/scene = ExtResource("1_cp1xt")
+scenes/2/scene = ExtResource("2_mbo1i")
+scenes/3/scene = ExtResource("3_ifg4b")
 
 [resource]
 sources/1 = SubResource("TileSetScenesCollectionSource_mbo1i")
