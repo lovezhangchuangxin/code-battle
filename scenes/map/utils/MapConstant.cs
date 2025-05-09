@@ -1,3 +1,6 @@
+/// <summary>
+/// 地形类型
+/// </summary>
 public enum TerrainType
 {
     /// <summary>
@@ -16,4 +19,19 @@ public enum TerrainType
     /// 墙壁
     /// </summary>
     Wall
+}
+
+/// <summary>
+/// 对象类型
+/// </summary>
+public enum ObjectType
+{
+    /// <summary>
+    /// 空对象
+    /// </summary>
+    None = 0,
+    /// <summary>
+    /// 能量
+    /// </summary>
+    Energy = 1
 }

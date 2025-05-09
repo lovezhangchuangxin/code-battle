@@ -24,9 +24,20 @@ public partial class MapEditor : Node2D
     public TileMapLayer WallLayer { get; set; }
 
     /// <summary>
+    /// 对象层
+    /// </summary>
+    [Export]
+    public TileMapLayer ObjectLayer { get; set; }
+
+    /// <summary>
     /// 每个位置的地形数据
     /// </summary>
     public Dictionary<Vector2I, TerrainType> TerrainData { get; set; } = [];
+
+    /// <summary>
+    /// 每个位置ide对象数据
+    /// </summary>
+    public Dictionary<Vector2I, ObjectType> ObjectData { get; set; } = [];
 
     public override void _Ready()
     {
@@ -34,7 +45,6 @@ public partial class MapEditor : Node2D
         int offset = -MapUtils.TILE_SIZE / 2;
         SwampLayer.Position = new Vector2(offset, offset);
         LavaLayer.Position = new Vector2(offset, offset);
-        WallLayer.Position = new Vector2(offset, offset);
     }
 
     /// <summary>
@@ -63,6 +73,12 @@ public partial class MapEditor : Node2D
         }
         TerrainData[coords] = terrain;
 
+        if (terrain == TerrainType.Wall)
+        {
+            WallLayer.SetCell(coords, 3, Vector2I.Zero);
+            return;
+        }
+
         // 更新周围四个邻居的瓦片
         foreach (var neighbour in MapUtils.NEIGHBOUR_POSITIONS)
         {
@@ -83,11 +99,38 @@ public partial class MapEditor : Node2D
 
         // 移除地形数据
         TerrainData.Remove(coords);
+
+        if (terrain == TerrainType.Wall)
+        {
+            WallLayer.EraseCell(coords);
+            return;
+        }
+
         // 更新周围四个邻居的瓦片
         foreach (var neighbour in MapUtils.NEIGHBOUR_POSITIONS)
         {
             Vector2I neighbourPosition = coords + neighbour;
             SetTile(neighbourPosition, terrain);
+        }
+    }
+
+    /// <summary>
+    /// 设置某个位置的对象
+    /// </summary>
+    public void SetObject(Vector2I coords, ObjectType objectType)
+    {
+        if (objectType == ObjectType.None)
+        {
+            ObjectData.Remove(coords);
+            ObjectLayer.EraseCell(coords);
+            return;
+        }
+
+        if (objectType == ObjectType.Energy)
+        {
+            ObjectData[coords] = objectType;
+            ObjectLayer.SetCell(coords, 1, Vector2I.Zero, 1);
+            return;
         }
     }
 
@@ -113,10 +156,6 @@ public partial class MapEditor : Node2D
         else if (terrain == TerrainType.Lava)
         {
             LavaLayer.SetCell(position, 1, tileAtlasCoords);
-        }
-        else if (terrain == TerrainType.Wall)
-        {
-            WallLayer.SetCell(position, 2, tileAtlasCoords);
         }
     }
 }

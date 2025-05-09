@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cmc14i78vuf3s"]
+[gd_scene load_steps=10 format=3 uid="uid://cmc14i78vuf3s"]
 
 [ext_resource type="Script" uid="uid://crl0s88uuueia" path="res://scenes/map/editor/MapEditor.cs" id="1_s7kdx"]
 [ext_resource type="TileSet" uid="uid://dsdu66ia6hpui" path="res://assets/tilesets/terrain_tileset.tres" id="1_uohav"]
+[ext_resource type="TileSet" uid="uid://y53dsvmuqrw1" path="res://assets/tilesets/object_tileset.tres" id="3_2ij43"]
 [ext_resource type="Texture2D" uid="uid://cq2j1cg3g7v1h" path="res://assets/images/ui/select_indicator.png" id="3_ebyee"]
 [ext_resource type="Script" uid="uid://diametpvwa6p8" path="res://scenes/map/editor/SelectCursor.cs" id="4_4xghy"]
 [ext_resource type="Script" uid="uid://bs1nvt743v2yg" path="res://scenes/map/editor/MapEditorCamera.cs" id="5_o2qhe"]
@@ -28,11 +29,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="MapEditor" type="Node2D" node_paths=PackedStringArray("SwampLayer", "LavaLayer", "WallLayer")]
+[node name="MapEditor" type="Node2D" node_paths=PackedStringArray("SwampLayer", "LavaLayer", "WallLayer", "ObjectLayer")]
 script = ExtResource("1_s7kdx")
 SwampLayer = NodePath("SwampLayer")
 LavaLayer = NodePath("LavaLayer")
 WallLayer = NodePath("WallLayer")
+ObjectLayer = NodePath("ObjectLayer")
 
 [node name="Ground" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -42,7 +44,7 @@ offset_right = 1155.0
 offset_bottom = 642.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0614913, 0.0247835, 0.103741, 1)
+color = Color(0.219608, 0.215686, 0.215686, 1)
 
 [node name="SwampLayer" type="TileMapLayer" parent="."]
 tile_set = ExtResource("1_uohav")
@@ -52,6 +54,9 @@ tile_set = ExtResource("1_uohav")
 
 [node name="WallLayer" type="TileMapLayer" parent="."]
 tile_set = ExtResource("1_uohav")
+
+[node name="ObjectLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("3_2ij43")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -65,7 +70,8 @@ offset_bottom = 130.0
 layout_mode = 2
 text = "按数字选择对应的地形"
 
-[node name="Label" type="Label" parent="CanvasLayer/VContainer"]
+[node name="Label1" type="Label" parent="CanvasLayer/VContainer"]
+modulate = Color(0.846171, 0.61869, 0.385813, 1)
 layout_mode = 2
 text = "1. 墙壁"
 
@@ -79,18 +85,23 @@ text = "3. 岩浆"
 
 [node name="Label4" type="Label" parent="CanvasLayer/VContainer"]
 layout_mode = 2
+text = "4. 能量"
+
+[node name="Label0" type="Label" parent="CanvasLayer/VContainer"]
+layout_mode = 2
 text = "0. 清除地形"
 
-[node name="SelectCursor" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("MapEditor", "Label", "Label2", "Label3", "Label4")]
+[node name="SelectCursor" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("MapEditor", "Label1", "Label2", "Label3", "Label4", "Label0")]
 sprite_frames = SubResource("SpriteFrames_2ij43")
 autoplay = "default"
 frame_progress = 0.999363
 script = ExtResource("4_4xghy")
 MapEditor = NodePath("..")
-Label = NodePath("../CanvasLayer/VContainer/Label")
+Label1 = NodePath("../CanvasLayer/VContainer/Label1")
 Label2 = NodePath("../CanvasLayer/VContainer/Label2")
 Label3 = NodePath("../CanvasLayer/VContainer/Label3")
 Label4 = NodePath("../CanvasLayer/VContainer/Label4")
+Label0 = NodePath("../CanvasLayer/VContainer/Label0")
 
 [node name="MapEditorCamera" type="Camera2D" parent="."]
 position = Vector2(579, 320)
