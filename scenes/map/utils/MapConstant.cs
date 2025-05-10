@@ -33,5 +33,13 @@ public enum ObjectType
     /// <summary>
     /// 能量
     /// </summary>
-    Energy = 1
+    Energy,
+    /// <summary>
+    /// 母巢
+    /// </summary>
+    Spawn,
+    /// <summary>
+    /// Npc 核心
+    /// </summary>
+    NpcCore
 }

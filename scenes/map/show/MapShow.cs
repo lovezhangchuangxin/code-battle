@@ -82,7 +82,7 @@ public partial class MapShow : Node2D
         {
             var coords = kvp.Key;
             var terrain = kvp.Value;
-            SetTerrain(coords, terrain);
+            SetTerrain(coords, terrain, true);
         }
 
         // 加载对象数据
@@ -97,7 +97,7 @@ public partial class MapShow : Node2D
     /// <summary>
     /// 设置某个位置的地形数据，位置是以瓦片为单位
     /// </summary>
-    public void SetTerrain(Vector2I coords, TerrainType terrain)
+    public void SetTerrain(Vector2I coords, TerrainType terrain, bool isNew = false)
     {
         if (terrain == TerrainType.None)
         {
@@ -106,7 +106,7 @@ public partial class MapShow : Node2D
         }
 
         // 更新地形数据
-        if (MapData.TerrainData.TryGetValue(coords, out TerrainType existingTerrain))
+        if (!isNew && MapData.TerrainData.TryGetValue(coords, out TerrainType existingTerrain))
         {
             // 移除旧的地形数据
             if (existingTerrain != terrain)
@@ -177,6 +177,20 @@ public partial class MapShow : Node2D
         {
             MapData.ObjectData[coords] = objectType;
             ObjectLayer.SetCell(coords, 1, Vector2I.Zero, 1);
+            return;
+        }
+
+        if (objectType == ObjectType.Spawn)
+        {
+            MapData.ObjectData[coords] = objectType;
+            ObjectLayer.SetCell(coords, 1, Vector2I.Zero, 2);
+            return;
+        }
+
+        if (objectType == ObjectType.NpcCore)
+        {
+            MapData.ObjectData[coords] = objectType;
+            ObjectLayer.SetCell(coords, 1, Vector2I.Zero, 3);
             return;
         }
     }

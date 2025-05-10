@@ -21,6 +21,12 @@ public partial class MapEditor : Node2D
     public Label Label4 { get; set; }
 
     [Export]
+    public Label Label5 { get; set; }
+
+    [Export]
+    public Label Label6 { get; set; }
+
+    [Export]
     public Label Label0 { get; set; }
 
     /// <summary>
@@ -65,6 +71,8 @@ public partial class MapEditor : Node2D
             Label2.Modulate = white;
             Label3.Modulate = white;
             Label4.Modulate = white;
+            Label5.Modulate = white;
+            Label6.Modulate = white;
         }
 
         if (@event.IsActionPressed("key_0"))
@@ -102,6 +110,20 @@ public partial class MapEditor : Node2D
             reset();
             Label4.Modulate = color;
         }
+        else if (@event.IsActionPressed("key_5"))
+        {
+            selectedTerrain = TerrainType.None;
+            selectedObject = ObjectType.Spawn;
+            reset();
+            Label5.Modulate = color;
+        }
+        else if (@event.IsActionPressed("key_6"))
+        {
+            selectedTerrain = TerrainType.None;
+            selectedObject = ObjectType.NpcCore;
+            reset();
+            Label6.Modulate = color;
+        }
     }
 
     public void OnLengthChanged(string text)
@@ -130,5 +152,16 @@ public partial class MapEditor : Node2D
         {
 
         }
+    }
+
+    public void OnSaveButtonPressed()
+    {
+        Map.MapData.Save("map.tres");
+    }
+
+    public void OnLoadButtonPressed()
+    {
+        Map.MapData.Load("map.tres");
+        Map.LoadMapData();
     }
 }

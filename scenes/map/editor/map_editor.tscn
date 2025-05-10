@@ -3,13 +3,15 @@
 [ext_resource type="Script" uid="uid://crl0s88uuueia" path="res://scenes/map/editor/MapEditor.cs" id="1_s7kdx"]
 [ext_resource type="PackedScene" uid="uid://cpmqjc2jeyvcj" path="res://scenes/map/show/map_show.tscn" id="2_o2qhe"]
 
-[node name="MapEditor" type="Node2D" node_paths=PackedStringArray("Map", "Label1", "Label2", "Label3", "Label4", "Label0")]
+[node name="MapEditor" type="Node2D" node_paths=PackedStringArray("Map", "Label1", "Label2", "Label3", "Label4", "Label5", "Label6", "Label0")]
 script = ExtResource("1_s7kdx")
 Map = NodePath("MapShow")
 Label1 = NodePath("CanvasLayer/VBoxContainer/Label1")
 Label2 = NodePath("CanvasLayer/VBoxContainer/Label2")
 Label3 = NodePath("CanvasLayer/VBoxContainer/Label3")
 Label4 = NodePath("CanvasLayer/VBoxContainer/Label4")
+Label5 = NodePath("CanvasLayer/VBoxContainer/Label5")
+Label6 = NodePath("CanvasLayer/VBoxContainer/Label6")
 Label0 = NodePath("CanvasLayer/VBoxContainer/Label0")
 
 [node name="MapShow" parent="." instance=ExtResource("2_o2qhe")]
@@ -64,9 +66,33 @@ text = "3. 岩浆"
 layout_mode = 2
 text = "4. 能量"
 
+[node name="Label5" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "5. 母巢"
+
+[node name="Label6" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "6. Npc核心"
+
 [node name="Label0" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 text = "0. 清除地形"
 
+[node name="SaveButton" type="Button" parent="CanvasLayer"]
+offset_left = 980.0
+offset_top = 35.0
+offset_right = 1042.0
+offset_bottom = 66.0
+text = "保存"
+
+[node name="LoadButton" type="Button" parent="CanvasLayer"]
+offset_left = 1064.0
+offset_top = 35.0
+offset_right = 1122.0
+offset_bottom = 66.0
+text = "加载"
+
 [connection signal="text_changed" from="CanvasLayer/GridContainer/LengthEdit" to="." method="OnLengthChanged"]
 [connection signal="text_changed" from="CanvasLayer/GridContainer/WidthEdit" to="." method="OnWidthChanged"]
+[connection signal="pressed" from="CanvasLayer/SaveButton" to="." method="OnSaveButtonPressed"]
+[connection signal="pressed" from="CanvasLayer/LoadButton" to="." method="OnLoadButtonPressed"]
