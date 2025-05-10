@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg8esxrceng42"]
+
+[ext_resource type="Texture2D" uid="uid://dh8khtjejcc02" path="res://assets/images/objects/bot.png" id="1_8vsj3"]
+[ext_resource type="Script" uid="uid://cq27gcvcipwi8" path="res://scripts/engine/objects/bot/Bot.cs" id="2_1yn6q"]
+
+[node name="Bot" type="Sprite2D"]
+texture = ExtResource("1_8vsj3")
+script = ExtResource("2_1yn6q")

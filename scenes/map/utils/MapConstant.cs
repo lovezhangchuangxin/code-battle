@@ -41,5 +41,9 @@ public enum ObjectType
     /// <summary>
     /// Npc 核心
     /// </summary>
-    NpcCore
+    NpcCore,
+    /// <summary>
+    /// 机器人
+    /// </summary>
+    Bot
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cpmqjc2jeyvcj"]
+[gd_scene load_steps=11 format=3 uid="uid://cpmqjc2jeyvcj"]
 
 [ext_resource type="Script" uid="uid://d2flumjhrkqye" path="res://scenes/map/show/MapShow.cs" id="1_uogti"]
 [ext_resource type="Shader" uid="uid://dvo2bnksf4pos" path="res://shaders/grid.gdshader" id="2_0jare"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cq2j1cg3g7v1h" path="res://assets/images/ui/select_indicator.png" id="5_2dxiw"]
 [ext_resource type="Script" uid="uid://dgovklhveg77t" path="res://scenes/map/show/MapCamera.cs" id="6_8a14j"]
 [ext_resource type="Script" uid="uid://bok8kdlsefdct" path="res://scenes/map/show/SelectCursor.cs" id="6_hgoal"]
+[ext_resource type="Script" uid="uid://d3qpn4v2w1o70" path="res://scripts/engine/ScriptExector.cs" id="8_bwg7a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2dxiw"]
 shader = ExtResource("2_0jare")
@@ -19,7 +20,7 @@ shader_parameter/thickness = 0.5
 atlas = ExtResource("5_2dxiw")
 region = Rect2(0, 0, 17, 17)
 
-[node name="MapShow" type="Node2D" node_paths=PackedStringArray("Ground", "SwampLayer", "LavaLayer", "WallLayer", "ObjectLayer", "Camera")]
+[node name="MapShow" type="Node2D" node_paths=PackedStringArray("Ground", "SwampLayer", "LavaLayer", "WallLayer", "ObjectLayer", "Camera", "Bots")]
 script = ExtResource("1_uogti")
 Ground = NodePath("Ground")
 SwampLayer = NodePath("SwampLayer")
@@ -27,6 +28,7 @@ LavaLayer = NodePath("LavaLayer")
 WallLayer = NodePath("WallLayer")
 ObjectLayer = NodePath("ObjectLayer")
 Camera = NodePath("MapCamera")
+Bots = NodePath("Bots")
 
 [node name="Ground" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_2dxiw")
@@ -53,3 +55,9 @@ script = ExtResource("6_hgoal")
 [node name="MapCamera" type="Camera2D" parent="."]
 position = Vector2(577, 325)
 script = ExtResource("6_8a14j")
+
+[node name="ScriptExector" type="Node" parent="."]
+script = ExtResource("8_bwg7a")
+scriptPath = "D:\\Games\\GodotGame\\code-battle\\scripts\\code"
+
+[node name="Bots" type="Node2D" parent="."]

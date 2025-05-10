@@ -40,6 +40,12 @@ public partial class MapShow : Node2D
     public MapCamera Camera { get; set; }
 
     /// <summary>
+    /// 机器人都挂在这个节点下面
+    /// </summary>
+    [Export]
+    public Node2D Bots { get; set; }
+
+    /// <summary>
     /// 地图数据
     /// </summary>
     private MapData _mapData = new MapData();
@@ -57,6 +63,15 @@ public partial class MapShow : Node2D
         }
     }
 
+    public override void _EnterTree()
+    {
+        if (Game.MapName != null)
+        {
+            MapData.Load(Game.MapName + ".tres");
+            Game.Map = this;
+        }
+    }
+
     public override void _Ready()
     {
         // 设置沼泽层和岩浆层的偏移量
@@ -64,6 +79,15 @@ public partial class MapShow : Node2D
         SwampLayer.Position = new Vector2(offset, offset);
         LavaLayer.Position = new Vector2(offset, offset);
         ResizeMap(MapData.MapLength, MapData.MapWidth);
+        if (Game.MapName != null)
+        {
+            LoadMapData();
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        Game.Map = null;
     }
 
     /// <summary>
@@ -233,5 +257,36 @@ public partial class MapShow : Node2D
         material?.SetShaderParameter("resolution", size);
         material?.SetShaderParameter("grid_size", MapUtils.TILE_SIZE);
         Camera.MoveToMapCenter(length, width);
+    }
+}
+
+public class MapApi
+{
+    public int Length { get; set; }
+    public int Width { get; set; }
+    public TerrainType[][] Terrains { get; set; }
+
+    public MapApi(MapShow map)
+    {
+        MapData mapData = map.MapData;
+        Length = mapData.MapLength;
+        Width = mapData.MapWidth;
+        Terrains = new TerrainType[Length][];
+        for (int i = 0; i < Length; i++)
+        {
+            Terrains[i] = new TerrainType[Width];
+            for (int j = 0; j < Width; j++)
+            {
+                Vector2I coords = new(i, j);
+                if (mapData.TerrainData.TryGetValue(coords, out TerrainType terrain))
+                {
+                    Terrains[i][j] = terrain;
+                }
+                else
+                {
+                    Terrains[i][j] = TerrainType.None;
+                }
+            }
+        }
     }
 }

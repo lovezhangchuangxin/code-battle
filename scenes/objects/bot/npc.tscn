@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://csqaw0l1ovcn2"]
+
+[ext_resource type="Texture2D" uid="uid://bq0ve67l2iki" path="res://assets/images/objects/npc.png" id="1_a25v4"]
+[ext_resource type="Script" uid="uid://cq27gcvcipwi8" path="res://scripts/engine/objects/bot/Bot.cs" id="2_mf1b5"]
+
+[node name="Npc" type="Sprite2D"]
+texture = ExtResource("1_a25v4")
+script = ExtResource("2_mf1b5")
